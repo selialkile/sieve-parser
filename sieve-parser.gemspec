@@ -15,7 +15,8 @@ spec = Gem::Specification.new do |s|
             'lib/sieve-parser/condition.rb',
             'lib/sieve-parser/filter.rb',
             'lib/sieve-parser/filterset.rb',
-            'lib/sieve-parser.rb'
+            'lib/sieve-parser.rb',
+            'sieve-parser.gemspec'
             ]
 
   s.has_rdoc = true

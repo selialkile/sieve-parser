@@ -7,7 +7,7 @@ module Sieve
         %q{true} ,
         %q{header :contains "Subject" "teste"} ,
         %q{not header :contains "Subject" "teste"} ,
-        %q{header :contains "From" "all", header :contains "aaaaa" "333"} ,
+        %q{header :contains "From" "all", header :contains "teste@teste-y.com" "333"} ,
         %q{header :contains "Subject" "lala", not header :contains "Subject" "popo", header :count "gt" :comparator "i;ascii-numeric" "Subject" "4", not exists "Subject", exists "Subject", header :count "ge" :comparator "i;ascii-numeric" "Subject" "2" } ,
         %q{xpto :contains "Subject" "teste,", not header :is "Subject" "lala," } ,
         %q{xpto :contains "Subject" "São Paulo,", not header :is "Subject" "lala," } ,

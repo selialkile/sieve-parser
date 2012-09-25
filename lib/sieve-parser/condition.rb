@@ -27,7 +27,7 @@ module Sieve
     #@return [Array(Contition)] array of Condition
     def self.parse_all(text)
       contitions = []
-      text.scan(/([\s\w:]*\"\S+\"\s\"[\sa-zA-Z0-9,ÁÀÃÂÇÉÈÊÍÌÓÒÔÕÚÙÜÑáàãâçéèêíìóòôõúùüñ]*\")/).each do |item|
+      text.scan(/([\s\w:]*\"\S+\"\s\"[\sa-zA-Z0-9,\.\-\@ÁÀÃÂÇÉÈÊÍÌÓÒÔÕÚÙÜÑáàãâçéèêíìóòôõúùüñ]*\")/).each do |item|
         contitions << self.new(item[0])
       end
       contitions
@@ -58,7 +58,7 @@ module Sieve
         return
       end
 
-      res = @text.scan(/(([\s\w:]+)\"(\S+)\"\s\"([\sa-zA-Z0-9,ÁÀÃÂÇÉÈÊÍÌÓÒÔÕÚÙÜÑáàãâçéèêíìóòôõúùüñ]*)\"|true)/)
+      res = @text.scan(/(([\s\w:]+)\"(\S+)\"\s\"([\sa-zA-Z0-9,\.\-\@ÁÀÃÂÇÉÈÊÍÌÓÒÔÕÚÙÜÑáàãâçéèêíìóòôõúùüñ]*)\"|true)/)
 
       params = res[0][1].strip.split(" ")
       params += [res[0][2]] + [res[0][3]]
