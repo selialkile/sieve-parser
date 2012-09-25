@@ -1,0 +1,70 @@
+# -*- coding: UTF-8 -*-
+
+module Sieve
+    
+  # This class contains the attributes of action 
+  class Action
+    attr_accessor :type, :copy, :target, :text
+
+    # Create Action object by text of action
+    #@param [string] text of action 
+    #@note Example:
+    #  fileinto :copy "INBOX.lixo"
+    #@return [Action] action object parsed
+    def initialize(text=nil)
+      @text = text
+      @type=nil
+      @copy=nil
+      @target=nil
+      parse unless @text.nil?
+    end
+
+    # Return a array of actions after parse the text
+    #@note Example:
+    #  fileinto "INBOX";
+    #  fileinto :copy "INBOX.lixo";
+    #  stop;
+    #@param [string] text of actions
+    #@return [Array(Action)] array of Actions
+    def self.parse_all(text)
+      lines = text.split("\n")
+      actions = []
+      lines.each do |line|
+        actions << self.new(line)
+      end
+      actions
+    end
+
+    # Return a text of action
+    #@return [string] text of action
+    def to_s
+      text =""
+      {'type'=>@type, 'copy'=>@copy, 'target'=>@target}.each do |name,item|
+        if ['target'].index(name)
+          text += "\"#{item}\" " unless item.nil?
+        else
+          text += "#{item} " unless item.nil?
+        end
+
+      end
+      text[text.length-1] = ";"
+      text
+    end
+
+    private
+    # Parse text actions to variables of object
+    #@note Example:
+    #  @text = %q{fileinto :copy "INBOX.lixo"};
+    def parse
+      [';', '"'].each{|d| @text.delete!(d)}
+      params = @text.split(" ")
+      @type = params[0]
+      if params[1]==":copy"
+        @copy = params[1]
+        @target = params[2]
+      else
+        @target = params[1]
+      end
+    end
+  end
+end
