@@ -37,7 +37,7 @@ end
 script = m.get_script(name)
 
 #Object of Filterset with filters and requires, contruct your new filterset xD
-parsed = Sieve::Filterset.new(script)
+parsed = Sieve::FilterSet.new(script)
 
 puts parsed.to_s
 
