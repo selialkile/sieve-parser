@@ -1,0 +1,6 @@
+lib/sieve-parser.rb 07b893b78236dc66488405c35165ea41d07286c1
+lib/sieve-parser/filter.rb 41bf6b1fb92d021086606f1cbadd58bfecb51a00
+lib/sieve-parser/action.rb b72834c988c472eda823bb367a14384da7de56ed
+lib/sieve-parser/vacation.rb 12648646e7ca23a03d1ce60966d27ab5f9855694
+lib/sieve-parser/condition.rb dd804b035b8e90d143c130536790f580374dcf7f
+lib/sieve-parser/filterset.rb 508a6390ae89dbe6f8497d1a78b35ff9e4e7d30b

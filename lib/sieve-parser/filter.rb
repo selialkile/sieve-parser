@@ -7,16 +7,18 @@ module Sieve
   class Filter
 
     #@note [join] can be: any, allof or anyof
-    attr_accessor :name, :type, :join, :text_filter
+    attr_accessor :name, :type, :join, :disabled, :text
 
     # Initialize the class
-    #@param [string] String of filter text
+    #@param [String](:text) String of filter text
+    #@param [Array](:conditions) Array of Conditions
+    #@param [Array](:actions) Array of Actions
     #@return [object] Object of self
-    def initialize(text_filter=nil)
-      @text_filter = text_filter
-      @conditions = []
-      @actions = []
-      parse unless @text_filter.nil?
+    def initialize params={}
+      @text = params[:text]
+      @conditions = (params[:conditions]) ? params[:conditions] : []
+      @actions = (params[:actions]) ? params[:actions] : []
+      parse unless @text.nil?
     end
 
     # Return the conditions of filter
@@ -54,25 +56,31 @@ module Sieve
       else
         text += " " + conditions[0].to_s
       end
-      text += "\n{\n    "
-      text += actions.join("\n    ")
+      text += "\n{\n\t"
+      text += actions.join("\n\t")
       text += "\n}\n"
+    end
+
+    # Is disabled or not? Return the status of filter
+    #@return [boolean] true for disabled and false for enabled
+    def disabled?
+      @disabled == true
+    end
+
+    def disable!
+      @disabled = true
     end
 
     private
     # Parse conditions, call the parse_common or parse_vacation
     def parse
-      @text_filter[/vacation/].nil? ? parse_common : parse_vacation
-    end
-
-    private
-    # Parse the filter adding contitions and actions to class
-    def parse_common
       #regex_rules_params = "(^#.*)\nif([\s\w\:\"\.\;\(\)\,\-]+)\{([\@\<>=a-zA-Z0-9\s\[\]\_\:\"\.\;\(\)\,\-\/]+)\}$"
       #regex_rules_params2 = "(^#.*)\n(\S+)(.+)\n\{\n([\s\S]*)\}"
-      parts = @text_filter.scan(/(^#.*)\n(\S+)\s(.+)\n\{\n([\s\S]*)\}/)[0]
+      parts = @text.scan(/(^#.*)\n(\S+)\s(.+)\n\{\n([\s\S]*;)\n\}/)[0]
       parse_name(parts[0])
       @type = parts[1]
+
+      self.disable! if parts[2] =~ /.*false #/
       #if the join is true, dont have conditions...
       if parts[2] =~ /true/
         @conditions << Condition.new(type:"true")
@@ -80,24 +88,16 @@ module Sieve
         @join = parts[2][/^\S+/]
         @conditions.concat(Condition.parse_all( parts[2].scan(/\(([\S\s]+)\)/)[0][0] ))
       else
-        @conditions << Condition.new(parts[2])
+        @conditions << Condition.new(text:parts[2])
       end
 
       @actions.concat(Action.parse_all(parts[3]))
     end
 
-    private
-    # Parse the vacation filter
-    def parse_vacation
-
-    end
 
     def parse_name(text_name)
       @name = text_name.match(/#(.*)/)[1].strip
     end
   end
 
-  class Vacation
-    attr_accessor :days, :subject, :content
-  end
 end

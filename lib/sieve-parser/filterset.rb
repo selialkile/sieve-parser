@@ -15,6 +15,9 @@ module Sieve
   class FilterSet
     attr_accessor :text_sieve
     
+    #Create FilterSet
+    #@param [String] text of sieve
+    #@return [FilterSet]
     def initialize(text_sieve=nil)
       @text_sieve = text_sieve
       @requires = []
@@ -28,10 +31,25 @@ module Sieve
       @filters
     end
 
+    # Add filter to filters of filterset
+    #@param [Filter] filter object
+    def add_filter(filter)
+      raise Exception.new("The param is not a Filter!") unless filter.class.to_s == "Sieve::Filter"
+      @filters << filter
+    end
+
     # Requires inside the script
     #@return [array] names of requires
     def requires
       @requires
+    end
+
+    # Add require to requires of filterset
+    #@param [string] name of require
+    def add_require(req)
+      #TODO: Implement config of requires allowed
+      raise Exception.new("Is not a require valid!") unless req =~ /\S+/ 
+      @requires << req
     end
 
     # Return a text of filterset
@@ -50,7 +68,7 @@ module Sieve
       end
 
       @text_sieve.scan(/(^#.*\nif[\s\w\:\"\.\;\(\)\,\-]*\n\{[a-zA-Z0-9\s\@\<>=\:\[\]\_\"\.\;\(\)\,\-\/]*\n\}$)/).each do |f| 
-        @filters << Sieve::Filter.new(f[0])
+        @filters << Sieve::Filter.new(text:f[0])
       end
 
     end

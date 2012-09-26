@@ -26,7 +26,7 @@ module Sieve
         end
 
         it "should have copy" do
-          subject.copy.should == ":copy"
+          subject.copy.should == true
         end
 
         it "should have target" do
@@ -42,7 +42,7 @@ module Sieve
         end
 
         it "should have copy" do
-          subject.copy.should == ":copy"
+          subject.copy.should == true
         end
 
         it "should have target" do

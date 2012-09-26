@@ -5,18 +5,23 @@ module Sieve
   class Condition
     attr_accessor :test,:not,:arg1,:arg2,:type, :text
 
-    # Create Condition object by text of condition
+    # Create Condition object by text of condition or params
     #@note Example:
     #  header :contains "Subject" "teste"
-    #@param [string] text of condition 
+    #@param [String](:text) text of condition 
+    #@param [String](:test) test of condition 
+    #@param [String](:not) not of condition 
+    #@param [String](:arg1) arg1 of condition 
+    #@param [String](:arg2) arg2 of condition 
+    #@param [String](:type) type of condition 
     #@return [Condition] Condition object parsed
-    def initialize(text=nil)
-      @text = text
-      @test=nil
-      @not=nil
-      @arg1=nil
-      @arg2=nil
-      @type=nil
+    def initialize params={}
+      @text = params[:text]
+      @test=params[:test]
+      @not=params[:not]
+      @arg1=params[:arg1]
+      @arg2=params[:arg2]
+      @type= params[:type]
       parse unless @text.nil?
     end
     # Return a array of conditions after parse the text
@@ -28,7 +33,7 @@ module Sieve
     def self.parse_all(text)
       contitions = []
       text.scan(/([\s\w:]*\"\S+\"\s\"[\sa-zA-Z0-9,\.\-\@ÁÀÃÂÇÉÈÊÍÌÓÒÔÕÚÙÜÑáàãâçéèêíìóòôõúùüñ]*\")/).each do |item|
-        contitions << self.new(item[0])
+        contitions << self.new(text:item[0])
       end
       contitions
     end

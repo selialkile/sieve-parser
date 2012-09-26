@@ -1,2 +1,8 @@
+[0.0.2]
+ - New functions of filterset (add_filter, add_require);
+ - Parser of Vacation/Autoreplay actions with other actions;
+ - Changes on create object of (Filter,Vacation,Condition), use Object.new(text:"text_of_sieve")
+ - Docs
+
 [0.0.1]
  - Parse of filters with a "IF" condition;

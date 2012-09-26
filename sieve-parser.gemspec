@@ -2,7 +2,7 @@ require 'rubygems'
 
 spec = Gem::Specification.new do |s|
   s.name = 'sieve-parser'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.summary = 'A Ruby library for sieve parser'
   s.description = <<-EOF
     sieve-parser is a pure-ruby implementation for parsing and 

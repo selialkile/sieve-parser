@@ -27,10 +27,14 @@ module Sieve
     #@param [string] text of actions
     #@return [Array(Action)] array of Actions
     def self.parse_all(text)
-      lines = text.split("\n")
+      lines = text.scan(/^[\s]*(.+;)$|^[\s]*(.+\n\S+.*;\s*.*\n\.\n\;)/)
       actions = []
       lines.each do |line|
-        actions << self.new(line)
+        if !line[0].nil?
+          actions << self.new(line[0])
+        else
+          actions << Sieve::Vacation.parse_text(line[1])
+        end
       end
       actions
     end
@@ -39,7 +43,7 @@ module Sieve
     #@return [string] text of action
     def to_s
       text =""
-      {'type'=>@type, 'copy'=>@copy, 'target'=>@target}.each do |name,item|
+      {'type'=>@type, 'copy'=>(@copy) ? ":copy" : nil, 'target'=>@target}.each do |name,item|
         if ['target'].index(name)
           text += "\"#{item}\" " unless item.nil?
         else
@@ -60,7 +64,7 @@ module Sieve
       params = @text.split(" ")
       @type = params[0]
       if params[1]==":copy"
-        @copy = params[1]
+        @copy = true
         @target = params[2]
       else
         @target = params[1]

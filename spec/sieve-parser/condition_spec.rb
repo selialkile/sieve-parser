@@ -22,7 +22,7 @@ module Sieve
       end
 
       context "given a success with condition of all messages(true)" do
-        subject{Sieve::Condition.new(conditions_text[0])}
+        subject{Sieve::Condition.new(text:conditions_text[0])}
 
         it 'should have a test attribute' do
           subject.test.should == "true"
@@ -30,7 +30,7 @@ module Sieve
       end
 
       context "given a success with one condition" do
-        subject{Sieve::Condition.new(conditions_text[1])}
+        subject{Sieve::Condition.new(text:conditions_text[1])}
 
         it "dont should have not" do
           subject.not.should == nil
@@ -54,7 +54,7 @@ module Sieve
       end
 
       context "given a success with one condition with not" do
-        subject{Sieve::Condition.new(conditions_text[2])}
+        subject{Sieve::Condition.new(text:conditions_text[2])}
 
         it "dont should have not" do
           subject.not.should == "not"
@@ -149,13 +149,13 @@ module Sieve
 
     context "#to_s" do
       context "given a success with get text of condition" do
-        subject{Sieve::Condition.new(conditions_text[1])}
+        subject{Sieve::Condition.new(text:conditions_text[1])}
         it "should return a text" do
           subject.to_s.should == %q{header :contains "Subject" "teste"}
         end
       end
       context "given a success with get text of condition of true" do
-        subject{Sieve::Condition.new(conditions_text[0])}
+        subject{Sieve::Condition.new(text:conditions_text[0])}
         it "should return a text" do
           subject.to_s.should == "true"
         end
