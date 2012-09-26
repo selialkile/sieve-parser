@@ -1,3 +1,6 @@
+[0.0.3]
+ - Fix deploy
+ 
 [0.0.2]
  - New functions of filterset (add_filter, add_require);
  - Parser of Vacation/Autoreplay actions with other actions;
