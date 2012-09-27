@@ -57,7 +57,7 @@ module Sieve
     #@return [string] text of filter
     def to_s
       text = "# #{name}\n"
-      text += "#{@type}"
+      text += ((disabled?) ? "false #" : "") + "#{@type}"
       if conditions.count > 1
         text += " #{@join} (" + conditions.join(", ") + ")"
       else
