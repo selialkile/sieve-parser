@@ -39,10 +39,17 @@ module Sieve
       @name
     end
 
+    # Add object of Action to filter
+    #@param [Sieve::Action]
+    def add_action(action)
+      raise "the param is not a Action" unless action.class.to_s == "Sieve::Action"
+      @actions << action
+    end
+
     # Add object of Condition to filter
     #@param [Sieve::Condition]
     def add_condition(condition)
-      raise "the param is not a Condition" unless condition.class.to_s == "Sieve::Action"
+      raise "the param is not a Condition" unless condition.class.to_s == "Sieve::Condition"
       @conditions << condition
     end
 
