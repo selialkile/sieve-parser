@@ -42,7 +42,8 @@ module Sieve
     # Add object of Action to filter
     #@param [Sieve::Action]
     def add_action(action)
-      raise "the param is not a Action" unless action.class.to_s == "Sieve::Action"
+      types = ["Sieve::Action", "Sieve::Vacation"]
+      raise "the param is not a Action" unless types.index(action.class.to_s)
       @actions << action
     end
 

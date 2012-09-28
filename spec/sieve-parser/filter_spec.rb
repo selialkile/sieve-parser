@@ -142,5 +142,24 @@ Content-Type: text/html;
       end
     end
 
+    context "#add_action" do
+      context "given a success with add actions" do
+        subject{Sieve::Filter.new()}
+        let(:action){Sieve::Action.new("stop;")}
+        let(:vacation){Sieve::Vacation.new(subject:"teste")}
+
+
+        it "should add action" do
+          subject.add_action(action)
+          subject.actions.count.should == 1
+        end
+
+        it "should add vacation" do
+          subject.add_action(vacation)
+          subject.actions.count.should == 1
+        end
+      end
+    end
+
   end
 end
