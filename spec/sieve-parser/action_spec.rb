@@ -103,6 +103,13 @@ module Sieve
     end
 
     context "#to_s" do
+
+      context "given a success with new object" do
+        subject{Sieve::Action.new()}
+        it "should return a text" do
+          subject.to_s.should == ""
+        end
+      end
       context "given a success with get text of action of fileinto" do
         subject{Sieve::Action.new(actions_text[0])}
         it "should return a text" do

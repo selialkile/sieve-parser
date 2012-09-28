@@ -51,7 +51,7 @@ module Sieve
         end
 
       end
-      text[text.length-1] = ";"
+      text[text.length-1] = ";" if text.length > 0
       text
     end
 
