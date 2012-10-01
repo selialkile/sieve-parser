@@ -4,8 +4,9 @@ source 'http://rubygems.org'
 
 group :test, :development do
   gem 'pry'
-  gem 'guard'
+  gem 'guard-rspec'
   gem 'yard'
   gem 'rspec'
   gem "rspec-rails", "~> 2.4"
+  gem 'rb-fsevent', '~> 0.9.1'
 end
