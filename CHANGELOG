@@ -1,3 +1,9 @@
+[0.0.4]
+ - AutoRequire on Filterset enable by default
+ - ajust in guard for tests
+ - filter type default
+ - new methods for filter and filterset
+ 
 [0.0.3]
  - Fix deploy
  
