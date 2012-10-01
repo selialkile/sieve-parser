@@ -36,21 +36,21 @@ module Sieve
     # @param [String] name of filter
     # @return [integer] index of filter
     def find_filter_by_name(name)
-      @filter.index{|f| f.name==name}
+      @filters.index{|f| f.name==name}
     end
 
     # Return filter index by name
     # @param [String] name of filter
     # @return [Sieve::Filter]
     def filter_index_by_name(name)
-      @filter.index{|f| f.name==name}
+      @filters.index{|f| f.name==name}
     end
 
     # Remove filter by name
     # @param [String] name of filter
     # @return [Array] @filter array
     def remove_filter_by_name(name)
-      @filter.delete_if {|f| f.name == name }
+      @filters.delete_if {|f| f.name == name }
     end
 
     # Add filter to filters of filterset
