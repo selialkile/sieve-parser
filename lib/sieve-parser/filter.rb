@@ -16,6 +16,7 @@ module Sieve
     #@return [object] Object of self
     def initialize params={}
       @text = params[:text]
+      @type = "if"
       @conditions = (params[:conditions]) ? params[:conditions] : []
       @actions = (params[:actions]) ? params[:actions] : []
       parse unless @text.nil?
