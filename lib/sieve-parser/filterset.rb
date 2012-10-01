@@ -13,7 +13,7 @@
 
 module Sieve
   class FilterSet
-    attr_accessor :text_sieve
+    attr_accessor :text_sieve, :auto_require
     
     #Create FilterSet
     #@param [String] text of sieve
@@ -22,6 +22,7 @@ module Sieve
       @text_sieve = text_sieve
       @requires = []
       @filters = []
+      @auto_require = true;
       parse unless @text_sieve.nil?
     end
 
@@ -56,13 +57,14 @@ module Sieve
     #@param [Filter] filter object
     def add_filter(filter)
       raise Exception.new("The param is not a Filter!") unless filter.class.to_s == "Sieve::Filter"
+      load_requires(filter) if @auto_require == true
       @filters << filter
     end
 
     # Requires inside the script
     #@return [array] names of requires
     def requires
-      @requires
+      @requires.uniq!
     end
 
     # Add require to requires of filterset
@@ -71,12 +73,13 @@ module Sieve
       #TODO: Implement config of requires allowed
       raise Exception.new("Is not a require valid!") unless req =~ /\S+/ 
       @requires << req
+      @requires.uniq!
     end
 
     # Return a text of filterset
     #@return [string] text of filterset
     def to_s
-      text = "require [\"#{requires.join('","')}\"];\n"
+      text = "require [\"#{requires.join('","')}\"];\n" if requires.count > 0
       text += filters.join("")
     end
 
@@ -92,6 +95,19 @@ module Sieve
         @filters << Sieve::Filter.new(text:f[0])
       end
 
+    end
+
+    #Load requires by filter
+    #@param [Sieve::Filter] object of filter
+    def load_requires(filter)
+      text_requires =  "fileinto reject envelope encoded-character vacation "
+      text_requires += "subaddress comparator-i;ascii-numeric relational regex "
+      text_requires += "imap4flags copy include variables body enotify environment mailbox date"
+      text_requires.split(" ").each do |search|
+        if filter.to_s.index(search)
+          add_require(search)
+        end
+      end
     end
   end
 end
