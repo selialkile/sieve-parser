@@ -89,7 +89,7 @@ module Sieve
         subject{Sieve::Condition.parse_all(conditions_text[4])}
 
         xit "should return a array with 6 conditions" do
-          #ajustar o parse para condicoes mais especificas
+          #make regex better, and get more conditions
           subject.count.should == 6
         end
       end
