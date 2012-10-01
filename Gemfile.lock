@@ -80,5 +80,6 @@ PLATFORMS
 DEPENDENCIES
   guard
   pry
+  rspec
   rspec-rails (~> 2.4)
   yard

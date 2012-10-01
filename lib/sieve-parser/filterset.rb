@@ -65,6 +65,7 @@ module Sieve
     #@return [array] names of requires
     def requires
       @requires.uniq!
+      @requires
     end
 
     # Add require to requires of filterset
@@ -79,7 +80,7 @@ module Sieve
     # Return a text of filterset
     #@return [string] text of filterset
     def to_s
-      text = "require [\"#{requires.join('","')}\"];\n" if requires.count > 0
+      text = "require [\"#{requires.join('","')}\"];\n" if @requires.count > 0
       text += filters.join("")
     end
 
