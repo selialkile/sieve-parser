@@ -141,5 +141,69 @@ if allof (header :contains "Subject" "asdf", header :contains "From" "vvvvv", he
       end
     end
 
+    context "#find_filter_by_name" do
+      subject{Sieve::FilterSet.new()}
+
+      context "given a success with find filter" do
+
+        it "should find filter" do
+          filter = Sieve::Filter.new(:name => "myname")
+          filter2 = Sieve::Filter.new(:name => "myname2")
+          subject.add_filter(filter)
+          subject.add_filter(filter2)
+          subject.find_filter_by_name("myname2").name.should == "myname2"
+        end
+      end
+
+      context "given a failure" do
+        it "should raise" do
+          expect{subject.find_filter_by_name("myname332")}.to raise_error("Filter not found")
+        end
+      end
+    end
+
+    context "#filter_index_by_name" do
+      subject{Sieve::FilterSet.new()}
+
+      context "given a success with find filter index" do
+
+        it "should find filter" do
+          filter = Sieve::Filter.new(:name => "myname")
+          filter2 = Sieve::Filter.new(:name => "myname2")
+          subject.add_filter(filter)
+          subject.add_filter(filter2)
+          subject.filter_index_by_name("myname2").should == 1
+        end
+      end
+
+      context "given a failure" do
+        it "should raise" do
+          expect{subject.filter_index_by_name("myname2")}.to raise_error("Filter not found")
+        end
+      end
+    end
+
+    context "#remove_filter_by_name" do
+      subject{Sieve::FilterSet.new()}
+
+      context "given a success with find filter index" do
+
+        it "should find filter" do
+          filter = Sieve::Filter.new(:name => "myname")
+          filter2 = Sieve::Filter.new(:name => "myname2")
+          subject.add_filter(filter)
+          subject.add_filter(filter2)
+          subject.remove_filter_by_name("myname2").should be_true
+        end
+      end
+
+      context "given a failure" do
+        it "should raise" do
+          expect{subject.remove_filter_by_name("mynamess")}.to raise_error("Filter not found")
+        end
+      end
+    end
+
+
   end
 end
