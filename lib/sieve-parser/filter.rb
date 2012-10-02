@@ -85,24 +85,28 @@ module Sieve
     private
     # Parse conditions, call the parse_common or parse_vacation
     def parse
-      #regex_rules_params = "(^#.*)\nif([\s\w\:\"\.\;\(\)\,\-]+)\{([\@\<>=a-zA-Z0-9\s\[\]\_\:\"\.\;\(\)\,\-\/]+)\}$"
-      #regex_rules_params2 = "(^#.*)\n(\S+)(.+)\n\{\n([\s\S]*)\}"
-      parts = @text.scan(/(^#.*)\n(\S+)\s(.+)\n\{\n([\s\S]*;)\n\}/)[0]
-      parse_name(parts[0])
-      @type = parts[1]
+      begin
+        #regex_rules_params = "(^#.*)\nif([\s\w\:\"\.\;\(\)\,\-]+)\{([\@\<>=a-zA-Z0-9\s\[\]\_\:\"\.\;\(\)\,\-\/]+)\}$"
+        #regex_rules_params2 = "(^#.*)\n(\S+)(.+)\n\{\n([\s\S]*)\}"
+        parts = @text.scan(/(^#.*)\n(\S+)\s(.+)\n\{\n([\s\S]*)\n\}/)[0]
+        parse_name(parts[0])
+        @type = parts[1]
 
-      self.disable! if parts[2] =~ /.*false #/
-      #if the join is true, dont have conditions...
-      if parts[2] =~ /true/
-        @conditions << Condition.new(type:"true")
-      elsif parts[2] =~ /(anyof|allof)/
-        @join = parts[2][/^\S+/]
-        @conditions.concat(Condition.parse_all( parts[2].scan(/\(([\S\s]+)\)/)[0][0] ))
-      else
-        @conditions << Condition.new(text:parts[2])
+        self.disable! if parts[2] =~ /.*false #/
+        #if the join is true, dont have conditions...
+        if parts[2] =~ /true/
+          @conditions << Condition.new(type:"true")
+        elsif parts[2] =~ /(anyof|allof)/
+          @join = parts[2][/^\S+/]
+          @conditions.concat(Condition.parse_all( parts[2].scan(/\(([\S\s]+)\)/)[0][0] ))
+        else
+          @conditions << Condition.new(text:parts[2])
+        end
+
+        @actions.concat(Action.parse_all(parts[3]))
+      rescue => e
+        puts e.to_s + " - text: #{@text}"
       end
-
-      @actions.concat(Action.parse_all(parts[3]))
     end
 
 

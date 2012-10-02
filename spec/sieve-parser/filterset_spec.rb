@@ -44,8 +44,35 @@ Content-Type: text/html;
 .
 ;
 }
+#redirect
+if true
+{
+\t
+}
+}
 }
     }
+
+    let(:filterset_text_test) {
+%Q{require ["copy","vacation"];
+# autoreplay
+if true
+{
+\tvacation :days 1 :subject "Lala" :mime text:
+Content-Type: text/html;
+
+lolo
+.
+;
+}
+# redirect
+if true
+{
+\t
+}
+}
+    }
+
     context ".new" do
       context "given a success" do
         subject{Sieve::FilterSet.new(filterset_text)}
@@ -99,6 +126,13 @@ if allof (header :contains "Subject" "asdf", header :contains "From" "vvvvv", he
         subject{Sieve::FilterSet.new(filterset_text_to_s)}
         it "should return a text" do
           subject.to_s.should == filterset_text_to_s
+        end
+      end
+
+      context "given a success with get text of filterset test" do
+        subject{Sieve::FilterSet.new(filterset_text_test)}
+        it "should return a text" do
+          subject.to_s.should == filterset_text_test
         end
       end
     end

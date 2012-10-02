@@ -84,7 +84,7 @@ module Sieve
     #@return [string] text of filterset
     def to_s
       text = "require [\"#{requires.join('","')}\"];\n" if @requires.count > 0
-      text += filters.join("")
+      text += filters.join("") if filters.count > 0
     end
 
     private

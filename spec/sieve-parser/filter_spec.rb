@@ -47,6 +47,14 @@ Content-Type: text/html;
 }
 }
     }
+    let(:filter_text_test){
+%Q{# redirect
+if true
+{
+\t
+}
+}
+}
 
     context ".new" do
       context "given a success with type anyof" do
@@ -138,6 +146,13 @@ Content-Type: text/html;
         #subject{Sieve::Filter.new(filter_text_anyof)}
         xit "should return a text" do
           subject.to_s.should == filter_text_anyof
+        end
+      end
+
+      context "given a success with get text of filter test" do
+        subject{Sieve::Filter.new(text:filter_text_test)}
+        it "should return a text" do
+          subject.to_s.should == filter_text_test
         end
       end
     end
