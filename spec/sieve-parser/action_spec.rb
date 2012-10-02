@@ -7,7 +7,9 @@ module Sieve
       %q{fileinto :copy "INBOX.rascunho";},
       %q{redirect :copy "lala@teste.com";},
       %q{discard;},
-      %q{stop;}
+      %q{stop;},
+      %q{redirect :copy;},
+      %q{redirect;},
     ]}
     context "#new" do
       context "given a success with new object'" do
@@ -71,6 +73,38 @@ module Sieve
 
         it 'should have a type' do
           subject.type.should == "stop"
+        end
+
+        it "should dont have copy" do
+          subject.copy.should == nil
+        end
+
+        it "should dont have target" do
+          subject.target.should == nil
+        end
+      end
+
+      context "given a success with type 'redirec' and no target" do
+        subject{Sieve::Action.new(actions_text[4])}
+
+        it 'should have a type' do
+          subject.type.should == "redirect"
+        end
+
+        it "should dont have copy" do
+          subject.copy.should == true
+        end
+
+        it "should dont have target" do
+          subject.target.should == nil
+        end
+      end
+
+      context "given a success with type 'redirec' and no target or copy" do
+        subject{Sieve::Action.new(actions_text[5])}
+
+        it 'should have a type' do
+          subject.type.should == "redirect"
         end
 
         it "should dont have copy" do

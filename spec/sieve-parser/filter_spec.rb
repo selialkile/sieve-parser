@@ -51,7 +51,7 @@ Content-Type: text/html;
 %Q{# redirect
 if true
 {
-\t
+\tredirect :copy;
 }
 }
 }

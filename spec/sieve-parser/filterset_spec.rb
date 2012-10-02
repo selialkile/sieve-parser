@@ -49,9 +49,13 @@ if true
 {
 \t
 }
+# redirect
+if true
+{
+\tredirect :copy;
 }
 }
-    }
+}
 
     let(:filterset_text_test) {
 %Q{require ["copy","vacation"];
@@ -70,6 +74,11 @@ if true
 {
 \t
 }
+# redirect
+if true
+{
+\tredirect :copy;
+}
 }
     }
 
@@ -85,7 +94,7 @@ if true
         end
 
         it "should have filters" do
-          subject.filters.count.should == 5
+          subject.filters.count.should == 7
         end
       end
 
