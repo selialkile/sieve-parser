@@ -98,11 +98,15 @@ module Sieve
     #@note The :text only have text to search
     #@return [Array<Sieve::Filter>]
     def where
-      @filters.select do |filter| 
-        filter.name == args[:name] unless args[:name].nil? || 
-        filter.disabled? == args[:disabled] unless args[:disabled].nil? ||
-        filter.to_s =~ /#{args[:text]}/ unless args[:text].nil? 
+      entries =[]
+      @filters.each do |filter| 
+        cond = false
+        cond = filter.name == args[:name] unless args[:name].nil?
+        cond = filter.disabled? == args[:disabled] unless args[:disabled].nil?
+        cond = filter.to_s =~ /#{args[:text]}/ unless args[:text].nil? 
+        entries << filter
       end
+      entries
     end
 
     private
