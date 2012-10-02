@@ -11,7 +11,13 @@
 # @author Thiago Coutinho<thiago.coutinho@locaweb.com.br>
 # @note This code folow de "THE BEER-WARE LICENSE"
 
+class SieveErrors
+  class FilterNotFound < StandardError;end
+  class InvalidParam < StandardError;end
+end
+
 module Sieve
+
   class FilterSet
     attr_accessor :text_sieve, :auto_require
     
@@ -44,7 +50,7 @@ module Sieve
     # @return [Sieve::Filter]
     def filter_index_by_name(name)
       key = @filters.index{|f| f.name==name}
-      raise Exception.new("Filter not found") unless key
+      raise SieveErrors::FilterNotFound unless key
       key
     end
 
@@ -85,6 +91,18 @@ module Sieve
     def to_s
       text = "require [\"#{requires.join('","')}\"];\n" if @requires.count > 0
       text += filters.join("") if filters.count > 0
+    end
+
+    # Return a array of filter by select with params
+    #@param [{:name=>String, :disabled => Boolean, :text => String}] 
+    #@note The :text only have text to search
+    #@return [Array<Sieve::Filter>]
+    def where
+      @filters.select do |filter| 
+        filter.name == args[:name] unless args[:name].nil? || 
+        filter.disabled? == args[:disabled] unless args[:disabled].nil? ||
+        filter.to_s =~ /#{args[:text]}/ unless args[:text].nil? 
+      end
     end
 
     private

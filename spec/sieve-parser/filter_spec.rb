@@ -154,6 +154,9 @@ if true
         it "should return a text" do
           subject.to_s.should == filter_text_test
         end
+
+        xit "filter with status disabled" do
+        end
       end
     end
 

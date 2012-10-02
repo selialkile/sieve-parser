@@ -19,6 +19,7 @@ module Sieve
       @type = (params[:type]) ? params[:name] : "if"
       @name = params[:name]
       @join = params[:join]
+      @disabled = params[:disabled]
       @conditions = (params[:conditions]) ? params[:conditions] : []
       @actions = (params[:actions]) ? params[:actions] : []
       parse unless @text.nil?
@@ -61,15 +62,17 @@ module Sieve
     #@return [string] text of filter
     def to_s
       text = "# #{name}\n"
-      text += ((disabled?) ? "false #" : "") + "#{@type}"
+      text += "#{@type}" + ((disabled?) ? " false #" : "")
       if conditions.count > 1
         text += " #{@join} (" + conditions.join(", ") + ")"
       else
         text += " " + conditions[0].to_s
       end
-      text += "\n{\n\t"
-      text += actions.join("\n\t")
+      text += "\n{\n"
+      text += "\t" + actions.join("\n\t") if actions.count > 0
       text += "\n}\n"
+    rescue => e
+      puts e.to_s
     end
 
     # Is disabled or not? Return the status of filter

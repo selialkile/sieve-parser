@@ -72,7 +72,7 @@ lolo
 # redirect
 if true
 {
-\t
+
 }
 # redirect
 if true
@@ -200,7 +200,7 @@ if allof (header :contains "Subject" "asdf", header :contains "From" "vvvvv", he
 
       context "given a failure" do
         it "should raise" do
-          expect{subject.find_filter_by_name("myname332")}.to raise_error("Filter not found")
+          expect{subject.find_filter_by_name("myname332")}.to raise_error(SieveErrors::FilterNotFound)
         end
       end
     end
@@ -221,7 +221,7 @@ if allof (header :contains "Subject" "asdf", header :contains "From" "vvvvv", he
 
       context "given a failure" do
         it "should raise" do
-          expect{subject.filter_index_by_name("myname2")}.to raise_error("Filter not found")
+          expect{subject.filter_index_by_name("myname2")}.to raise_error(SieveErrors::FilterNotFound)
         end
       end
     end
@@ -242,7 +242,7 @@ if allof (header :contains "Subject" "asdf", header :contains "From" "vvvvv", he
 
       context "given a failure" do
         it "should raise" do
-          expect{subject.remove_filter_by_name("mynamess")}.to raise_error("Filter not found")
+          expect{subject.remove_filter_by_name("mynamess")}.to raise_error(SieveErrors::FilterNotFound)
         end
       end
     end
