@@ -1,9 +1,11 @@
 # -*- coding: UTF-8 -*-
 # This class implements a parse of sieve filter and returns a object
 # to manipulate
+# 
 # @author Thiago Coutinho<thiago @ osfeio.com>(selialkile)
 # @note This code folow de "THE BEER-WARE LICENSE"
 module Sieve
+  #TODO:For future, Filter will be has a childrem, and make more complex filter
   class Filter
 
     #@note [join] can be: any, allof or anyof

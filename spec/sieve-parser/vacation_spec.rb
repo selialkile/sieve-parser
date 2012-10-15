@@ -28,7 +28,8 @@ Content-Type: text/html;
         end
 
         it "should have content" do
-          subject.content.should_not be_nil
+          content = %q{<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>se precisar de mim, chama o <span style="text-decoration: underline;"><em><strong>batman</strong></em></span>...</p><p>eu realmente nao estou.. chama outro...</p><p>para de me amolar...xD</p>}
+          subject.content.should == content
         end
       end
     end

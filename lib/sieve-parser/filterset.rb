@@ -28,7 +28,7 @@ module Sieve
       @text_sieve = text_sieve
       @requires = []
       @filters = []
-      @auto_require = true;
+      @auto_require = true
       parse unless @text_sieve.nil?
     end
 
@@ -89,11 +89,13 @@ module Sieve
     # Return a text of filterset
     #@return [string] text of filterset
     def to_s
+      text = ""
       text = "require [\"#{requires.join('","')}\"];\n" if @requires.count > 0
       text += filters.join("") if filters.count > 0
+      text
     end
 
-    # Return a array of filter by select with params
+    # Return a array of filters by select with all given params
     #@param [{:name=>String, :disabled => Boolean, :text => String}] 
     #@note The :text only have text to search
     #@return [Array<Sieve::Filter>]
@@ -104,7 +106,7 @@ module Sieve
         cond = filter.name == args[:name] unless args[:name].nil?
         cond = filter.disabled? == args[:disabled] unless args[:disabled].nil?
         cond = filter.to_s =~ /#{args[:text]}/ unless args[:text].nil? 
-        entries << filter
+        entries << filter if cond
       end
       entries
     end
@@ -117,7 +119,7 @@ module Sieve
         @requires.concat(r[0].split('","'))
       end
 
-      @text_sieve.scan(/(^#.*\nif[\s\w\:\"\.\;\(\)\,\-]*\n\{[a-zA-Z0-9\s\@\<>=\:\[\]\_\"\.\;\(\)\,\-\/]*\n\}$)/).each do |f| 
+      @text_sieve.scan(/(^#.*\nif[\s\w\:\"\.\;\(\)\,\-]*\n\{[a-zA-Z0-9\s\@\<>=\:\[\]\_\"\.\;\(\)\&\,\-\/]*\n\}$)/).each do |f| 
         @filters << Sieve::Filter.new(text:f[0])
       end
 

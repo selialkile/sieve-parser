@@ -59,25 +59,34 @@ if true
 
     let(:filterset_text_test) {
 %Q{require ["copy","vacation"];
-# autoreplay
+# redirect
 if true
 {
-\tvacation :days 1 :subject "Lala" :mime text:
+\tredirect :copy "redirect2@teste.com";
+\tredirect :copy "redirect@teste.com";
+\tredirect :copy "redirect3@teste.com";
+\tredirect :copy "redirect4@teste.com";
+\tredirect :copy "redirect5@teste.com";
+\tredirect :copy "redirect6@teste.com";
+\tredirect :copy "redirect7@teste.com";
+\tredirect :copy "redirect8@teste.com";
+\tredirect :copy "redirect9@teste.com";
+\tredirect :copy "redirect10@teste.com";
+\tredirect :copy "redirect11@teste.com";
+\tredirect :copy "redirect12@teste.com";
+\tredirect :copy "redirect13@teste.com";
+\tredirect :copy "test@xxx.com.br";
+}
+# AutoReply
+if true
+{
+\tvacation :days 1 :subject "teste ggsubject" :mime text:
 Content-Type: text/html;
 
-lolo
+&nbsp;&nbsp;&nbsp;&nbsp;lala<br>popo&nbsp;&nbsp;&nbsp;&nbsp;lala
 .
 ;
-}
-# redirect
-if true
-{
-
-}
-# redirect
-if true
-{
-\tredirect :copy;
+\tredirect :copy "thiagso@osfeio.com";
 }
 }
     }
