@@ -9,8 +9,10 @@ module Sieve
         %q{not header :contains "Subject" "teste"} ,
         %q{header :contains "From" "all", header :contains "teste@teste-y.com" "333"} ,
         %q{header :contains "Subject" "lala", not header :contains "Subject" "popo", header :count "gt" :comparator "i;ascii-numeric" "Subject" "4", not exists "Subject", exists "Subject", header :count "ge" :comparator "i;ascii-numeric" "Subject" "2" } ,
-        %q{xpto :contains "Subject" "teste,", not header :is "Subject" "lala," } ,
-        %q{xpto :contains "Subject" "São Paulo,", not header :is "Subject" "lala," } ,
+        %q{xpto :contains "Subject" "teste,", not header :is "Subject" "lala,"} ,
+        %q{xpto :contains "Subject" "São Paulo,", not header :is "Subject" "lala,"} ,
+        %q{header :count "ge" :comparator "i;ascii-numeric" "Subject" "1"} ,
+        %q{header :count "ge" :comparator "i;ascii-numeric" "Subject" "1", header :count "gt" :comparator "i;ascii-numeric" "Subject" "3", header :count "lt" :comparator "i;ascii-numeric" "Subject" "5", header :count "eq" :comparator "i;ascii-numeric" "Subject" "7", header :value "gt" :comparator "i;ascii-numeric" "Subject" "9", header :value "eq" :comparator "i;ascii-numeric" "Subject" "11" } ,
     ]}
     context "#new" do
       context "given a success with new object'" do
@@ -88,7 +90,7 @@ module Sieve
       context "given a success with many conditions " do
         subject{Sieve::Condition.parse_all(conditions_text[4])}
 
-        xit "should return a array with 6 conditions" do
+        it "should return a array with 6 conditions" do
           #make regex better, and get more conditions
           subject.count.should == 6
         end
@@ -158,6 +160,12 @@ module Sieve
         subject{Sieve::Condition.new(text:conditions_text[0])}
         it "should return a text" do
           subject.to_s.should == "true"
+        end
+      end
+      context "given a success with get text of condition type count with comparator" do
+        subject{Sieve::Condition.new(text:conditions_text[7])}
+        it "should return a text" do
+          subject.to_s.should == conditions_text[7]
         end
       end
     end

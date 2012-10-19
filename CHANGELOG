@@ -1,3 +1,17 @@
+[0.0.6]
+ - Sieve::Conditions => Parse new types and spliter more faster without regex
+ - Examples:
+    # header :contains "Subject" "lala"
+    # not header :contains "Subject" "popo"
+    # not exists "Subject"
+    # exists "Subject"
+    # header :count "ge" :comparator "i;ascii-numeric" "Subject" "1"
+    # header :count "gt" :comparator "i;ascii-numeric" "Subject" "3"
+    # header :count "lt" :comparator "i;ascii-numeric" "Subject" "5"
+    # header :count "eq" :comparator "i;ascii-numeric" "Subject" "7"
+    # header :value "gt" :comparator "i;ascii-numeric" "Subject" "9"
+    # header :value "eq" :comparator "i;ascii-numeric" "Subject" "11"
+
 [0.0.4]
  - AutoRequire on Filterset enable by default
  - ajust in guard for tests

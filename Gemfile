@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+gem "split-where" , ">= 0.0.3"
+
 #gem 'ruby-managesieve'
 
 group :test, :development do
