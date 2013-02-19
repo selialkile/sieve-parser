@@ -89,8 +89,28 @@ Content-Type: text/html;
 \tredirect :copy "thiagso@osfeio.com";
 }
 }
-    }
+}
+    let(:filterset_many_filters_else) {
+%Q{require ["fileinto"];
 
+if header :is "Sender" "owner-ietf-mta-filters@imc.org"
+\t{
+\tfileinto "filter"; # move to "filter" mailbox
+\t}
+elsif address :DOMAIN :is ["From", "To"] "example.com"
+\t{
+\tkeep;                # keep in "In" mailbox
+\t}
+elsif anyof (NOT address :all :contains ["To", "Cc", "Bcc"] "me@example.com", header :matches "subject" ["*make*money*fast*", "*university*dipl*mas*"])
+\t{
+\tfileinto "spam";    # move to "spam" mailbox
+\t}
+else
+\t{
+\tfileinto "personal";
+\t}
+}
+}
     context ".new" do
       context "given a success" do
         subject{Sieve::FilterSet.new(filterset_text)}
@@ -151,6 +171,13 @@ if allof (header :contains "Subject" "asdf", header :contains "From" "vvvvv", he
         subject{Sieve::FilterSet.new(filterset_text_test)}
         it "should return a text" do
           subject.to_s.should == filterset_text_test
+        end
+      end
+
+      context "given a success to get text of filterset with many filters conditions" do
+        subject{Sieve::FilterSet.new(filterset_many_filters_else)}
+        it "should return a text" do
+          subject.to_s.should == filterset_many_filters_else
         end
       end
     end
