@@ -92,23 +92,23 @@ Content-Type: text/html;
 }
     let(:filterset_many_filters_else) {
 %Q{require ["fileinto"];
-
+# wtf
 if header :is "Sender" "owner-ietf-mta-filters@imc.org"
-\t{
+{
 \tfileinto "filter"; # move to "filter" mailbox
-\t}
+}
 elsif address :DOMAIN :is ["From", "To"] "example.com"
-\t{
+{
 \tkeep;                # keep in "In" mailbox
-\t}
+}
 elsif anyof (NOT address :all :contains ["To", "Cc", "Bcc"] "me@example.com", header :matches "subject" ["*make*money*fast*", "*university*dipl*mas*"])
-\t{
+{
 \tfileinto "spam";    # move to "spam" mailbox
-\t}
+}
 else
-\t{
+{
 \tfileinto "personal";
-\t}
+}
 }
 }
     context ".new" do

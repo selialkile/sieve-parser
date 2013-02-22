@@ -5,11 +5,11 @@
 # @author Thiago Coutinho<thiago @ osfeio.com>(selialkile)
 # @note This code folow de "THE BEER-WARE LICENSE"
 module Sieve
-  #TODO:For future, Filter will be has a childrem, and make more complex filter
+  #TODO:For future, Filter will be has a children, and make more complex filter
   class Filter
 
     #@note [join] can be: any, allof or anyof
-    attr_accessor :name, :type, :join, :disabled, :text
+    attr_accessor :name, :type, :join, :disabled, :text, :children
 
     # Initialize the class
     #@param [String](:text) String of filter text
@@ -24,6 +24,7 @@ module Sieve
       @disabled = params[:disabled]
       @conditions = (params[:conditions]) ? params[:conditions] : []
       @actions = (params[:actions]) ? params[:actions] : []
+      @children = []
       parse unless @text.nil?
     end
 
@@ -87,6 +88,11 @@ module Sieve
       @disabled = true
     end
 
+    # Return if filter have a children
+    def children?
+      (@children.count > 0) ? true : false
+    end
+
     private
     # Parse conditions, call the parse_common or parse_vacation
     def parse
@@ -114,9 +120,12 @@ module Sieve
       end
     end
 
-
     def parse_name(text_name)
       @name = text_name.match(/#(.*)/)[1].strip
+    end
+
+    # Parse the children of filters(else/elseif)
+    def parse_children(text)
     end
   end
 

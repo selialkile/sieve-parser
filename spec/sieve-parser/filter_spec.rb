@@ -54,8 +54,20 @@ if true
 \tredirect :copy;
 }
 }
-}
+}    
 
+    let(:filter_text_else){
+%Q{# wtf
+if header :is "Sender" "owner-ietf-mta-filters@imc.org"
+{
+\tfileinto "filter"; # move to "filter" mailbox
+}
+else
+{
+\tkeep;                # keep in "In" mailbox
+}
+}
+}
     context ".new" do
       context "given a success with type anyof" do
         subject{Sieve::Filter.new(text:filter_text_anyof)}
@@ -127,6 +139,26 @@ if true
 
         it "should is disabled" do
           subject.disabled?.should be_true
+        end
+      end
+
+      context "given a success to filter with else " do
+        subject{Sieve::Filter.new(text:filter_text_else)}
+
+        it 'should have a name' do
+          subject.name.should == "wtf"
+        end
+
+        it "should have conditions" do
+          subject.conditions.count.should == 1
+        end
+
+        it "should have actions" do
+          subject.actions.count.should == 1
+        end
+
+        it "should have children" do
+          subject.children?.should be_true
         end
       end
 
