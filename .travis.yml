@@ -1,0 +1,14 @@
+language: ruby
+before_install: gem install bundler -v 1.17.3
+install: bundle install -j 4 --retry 3
+script:
+  - rspec
+matrix:
+  include:
+    - rvm: "1.9.3"
+    - rvm: "2.1.5"
+    - rvm: "2.2.2"
+    - rvm: "2.3.3"
+    - rvm: "2.4.1"
+    - rvm: "2.6.3"
+    - rvm: "2.7.0"
