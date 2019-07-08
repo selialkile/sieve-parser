@@ -57,7 +57,9 @@ Ruby/SieveParser was developed by Thiago Coutinho in Locaweb
 -  http://www.faqs.org/rfcs/rfc5229.html
 
 ## 6. LAST CHANGES
-
+*1.0.0*
+  - Upgrading gems
+  - Adding travis
 
 *0.0.6*
  - require 'split-where'
