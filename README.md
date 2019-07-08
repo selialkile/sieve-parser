@@ -10,26 +10,22 @@
 5. REFERENCES
 
 
-0. INTRODUCTION
-===============
+## 0. INTRODUCTION
 
 sieve-parser is a pure-ruby implementation for parsing and manipulate the sieve scripts.
 
 
-1. REQUIREMENTS
-===============
+## 1. REQUIREMENTS
 
 Ruby/SieveParser requires Ruby version 1.9.1 or newer.
 
 
-2. INSTALLATION
-===============
+## 2. INSTALLATION
 
 gem install sieve-parser
 
 
-3. LICENSE
-==========
+## 3. LICENSE
 
 Copyright (c) 2012 Thiago Coutinho <thiago@osfeio.com>
 <thiago.coutinho@locaweb.com.br>
@@ -47,28 +43,27 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
-4. AUTHOR
-=========
+## 4. AUTHOR
 
 Ruby/SieveParser was developed by Thiago Coutinho in Locaweb
 (http://www.locaweb.com.br).
 
 
-5. REFERENCES
-=============
+## 5. REFERENCES
 
-[1] http://www.faqs.org/rfcs/rfc3028.html
-[2] http://www.faqs.org/rfcs/rfc5804.html
-[3] http://www.faqs.org/rfcs/rfc5230.html
-[4] http://www.faqs.org/rfcs/rfc5229.html
+-  http://www.faqs.org/rfcs/rfc3028.html
+-  http://www.faqs.org/rfcs/rfc5804.html
+-  http://www.faqs.org/rfcs/rfc5230.html
+-  http://www.faqs.org/rfcs/rfc5229.html
 
-6. LAST CHANGES
-===============
+## 6. LAST CHANGES
 
-[0.0.6]
+
+*0.0.6*
  - require 'split-where'
  - Sieve::Conditions => Parse new types and spliter more faster without regex
  - Examples:
+```
     # header :contains "Subject" "lala"
     # not header :contains "Subject" "popo"
     # not exists "Subject"
@@ -79,3 +74,4 @@ Ruby/SieveParser was developed by Thiago Coutinho in Locaweb
     # header :count "eq" :comparator "i;ascii-numeric" "Subject" "7"
     # header :value "gt" :comparator "i;ascii-numeric" "Subject" "9"
     # header :value "eq" :comparator "i;ascii-numeric" "Subject" "11"
+```
