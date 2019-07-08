@@ -1,15 +1,16 @@
 require 'rubygems'
 
-spec = Gem::Specification.new do |spec|
-  spec.name = 'sieve-parser'
-  spec.version = '0.0.6'
-  spec.summary = 'A Ruby library for sieve parser'
-  spec.description = <<-EOF
-    sieve-parser is a pure-ruby implementation for parsing and
-    manipulate the sieve script.
+spec = Gem::Specification.new do |s|
+  s.name = 'sieve-parser'
+  s.version = '0.0.6'
+  s.summary = 'A Ruby library for sieve parser'
+  s.description = <<-EOF
+    sieve-parser is a pure-ruby implementation for parsing and 
+    manipulate the sieve scripts.
   EOF
-  spec.requirements << 'A sieve script to parse and gem ruby-managesieve to connect on server.'
-  spec.files = [
+  s.add_dependency 'split-where'
+  s.requirements << 'A sieve script to parse and gem ruby-managesieve to connect on server.'
+  s.files = [
             'lib/sieve-parser',
             'lib/sieve-parser/action.rb',
             'lib/sieve-parser/condition.rb',
@@ -20,19 +21,11 @@ spec = Gem::Specification.new do |spec|
             'sieve-parser.gemspec'
             ]
 
-  spec.author = 'Thiago Coutinho (www.locaweb.com.br)'
-  spec.email = 'thiago@osfeio.com'
-  spec.rubyforge_project = 'sieve-parser'
-  spec.homepage = "http://github.com/selialkile/sieve-parser"
-
-  spec.add_runtime_dependency 'split-where'
-
-  spec.add_development_dependency 'concurrent-ruby', '~> 1.0.2'
-  spec.add_development_dependency 'guard-rspec'
-  spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'rb-fsevent'
-  spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'rspec'
+  s.has_rdoc = true
+  s.author = 'Thiago Coutinho (www.locaweb.com.br)'
+  s.email = 'thiago@osfeio.com'
+  s.rubyforge_project = 'sieve-parser'
+  s.homepage = "http://github.com/selialkile/sieve-parser"
 end
 
 if __FILE__ == $0
