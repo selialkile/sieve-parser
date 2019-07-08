@@ -1,6 +1,12 @@
+<<<<<<< Updated upstream:README
                            Ruby/SieveParser
                            ~~~~~~~~~~~~~~~~
 
+=======
+[![Build Status](https://travis-ci.com/selialkile/sieve-parser.svg)](https://travis-ci.org/selialkile/sieve-parser)
+
+# Ruby/SieveParser
+>>>>>>> Stashed changes:README.md
 
 0. INTRODUCTION
 1. REQUIREMENTS
