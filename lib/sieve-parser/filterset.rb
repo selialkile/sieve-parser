@@ -20,7 +20,7 @@ module Sieve
 
   class FilterSet
     attr_accessor :text_sieve, :auto_require
-    
+
     #Create FilterSet
     #@param [String] text of sieve
     #@return [FilterSet]
@@ -81,7 +81,7 @@ module Sieve
     #@param [string] name of require
     def add_require(req)
       #TODO: Implement config of requires allowed
-      raise Exception.new("Is not a require valid!") unless req =~ /\S+/ 
+      raise Exception.new("Is not a require valid!") unless req =~ /\S+/
       @requires << req
       @requires.uniq!
     end
@@ -96,16 +96,16 @@ module Sieve
     end
 
     # Return a array of filters by select with all given params
-    #@param [{:name=>String, :disabled => Boolean, :text => String}] 
+    #@param [{:name=>String, :disabled => Boolean, :text => String}]
     #@note The :text only have text to search
     #@return [Array<Sieve::Filter>]
     def where
       entries =[]
-      @filters.each do |filter| 
+      @filters.each do |filter|
         cond = false
         cond = filter.name == args[:name] unless args[:name].nil?
         cond = filter.disabled? == args[:disabled] unless args[:disabled].nil?
-        cond = filter.to_s =~ /#{args[:text]}/ unless args[:text].nil? 
+        cond = filter.to_s =~ /#{args[:text]}/ unless args[:text].nil?
         entries << filter if cond
       end
       entries
@@ -115,11 +115,11 @@ module Sieve
     # Make de parse and put results in variables
     def parse
       #return a array with string of elements: "xxxx", "yyyyyy"
-      @text_sieve.scan(/^require\s\["(\S+)"\];$/).each do |r| 
+      @text_sieve.scan(/^require\s\["(\S+)"\];$/).each do |r|
         @requires.concat(r[0].split('","'))
       end
 
-      @text_sieve.scan(/(^#.*\nif[\s\w\:\"\.\;\(\)\,\-]*\n\{[a-zA-Z0-9\s\@\<>=\:\[\]\_\"\.\;\(\)\&\,\-\/]*\n\}$)/).each do |f| 
+      @text_sieve.scan(/(^#.*\nif[\s\w\:\"\.\;\(\)\,\-@]*\n\{[a-zA-Z0-9\s\@\<>=\:\[\]\_\"\.\;\(\)\&\,\-\/]*\n\}$)/).each do |f|
         @filters << Sieve::Filter.new(text:f[0])
       end
 

@@ -58,7 +58,7 @@ if true
 
     context ".new" do
       context "given a success with type anyof" do
-        subject{Sieve::Filter.new(text:filter_text_anyof)}
+        subject {Sieve::Filter.new(text:filter_text_anyof)}
 
         it 'should have a name' do
           subject.name.should == "rule:[nome_all]"
@@ -105,7 +105,7 @@ if true
         end
 
         it "should is enabled" do
-          subject.disabled?.should be_false
+          expect(subject.disabled?).to be_falsey
         end
 
       end
@@ -126,7 +126,7 @@ if true
         end
 
         it "should is disabled" do
-          subject.disabled?.should be_true
+          expect(subject.disabled?).to be_truthy
         end
       end
 
