@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sieve-parser (0.0.6)
+    sieve-parser (1.0.0)
       split-where
 
 GEM
@@ -120,7 +120,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  concurrent-ruby (~> 1.0.2)
+  concurrent-ruby
   guard-rspec
   pry
   rb-fsevent
